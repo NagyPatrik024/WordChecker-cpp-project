@@ -139,12 +139,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="node.cpp" />
     <ClCompile Include="trie.cpp" />
     <ClCompile Include="WordChecker.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="node.h" />
     <ClInclude Include="trie.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
