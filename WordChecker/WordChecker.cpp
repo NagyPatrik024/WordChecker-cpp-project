@@ -4,6 +4,10 @@
 
 int main()
 {
+    Trie trie = Trie();
+
+    trie.InsertWord("asd");
+    trie.InsertWord("apple");
     
 }
 

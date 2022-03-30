@@ -3,24 +3,23 @@
 #include <memory>
 #include <string>
 
+
 struct Node {
-	Node() : mEnd(false) {}
+	Node() {}
+	Node(bool mEnd) : mEnd(mEnd) {}
 
 
-	bool mEnd;
-	std::vector<std::shared_ptr<Node>> mVector = std::vector<std::shared_ptr<Node>>();
+	bool mEnd = false;
+	std::vector<std::shared_ptr<Node>> mVector = std::vector< std::shared_ptr<Node>>(26);
 };
 
 class Trie
 {
 public:
+	Trie();
 	void InsertWord(const std::string& word);
 
-
-
 private:
-	void InsertCharacter(const char& character, Node& node);
-	bool Search(const char& c, Node& node);
-	Node mHead = Node();
+	std::shared_ptr<Node> mHead;
 };
 
