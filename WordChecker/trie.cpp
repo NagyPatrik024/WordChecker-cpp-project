@@ -79,37 +79,34 @@ void Trie::Start(const std::string fileName)
 		this->InsertWord(line);
 	}
 
-	uint8_t helper = 0;
 	std::string line;
 	std::cout << "Write a sentence" << std::endl;
 	std::getline(std::cin, line);
-	auto pos = line.find(' ');
-	do
-	{
-		const auto word = line.substr(0, pos);
-		if (!this->WordChecker(word))
-		{
-			std::cout << "Incorrect word! --> " << word << std::endl;
-		}
-		else
-		{
-			std::cout << "Correct word! --> " << word << std::endl;
-		}
-		line = line.substr(pos + 1);
-		pos = line.find(' ');
-		++helper;
-	} while (pos != std::string::npos);
 
-	if (helper > 1)
+	auto pos = line.find(' ');
+	if (pos != std::string::npos)
 	{
-		if (!this->WordChecker(line))
-		{
-			std::cout << "Incorrect word! --> " << line << std::endl;
-		}
-		else
-		{
-			std::cout << "Correct word! --> " << line << std::endl;
-		}
+		do {
+			const auto word = line.substr(0, pos);
+			if (!this->WordChecker(word))
+			{
+				std::cout << "Incorrect word! --> " << word << std::endl;
+			}
+			else
+			{
+				std::cout << "Correct word! --> " << word << std::endl;
+			}
+			line = line.substr(pos + 1);
+			pos = line.find(' ');
+		} while (pos != std::string::npos);
+	}
+	if (!this->WordChecker(line))
+	{
+		std::cout << "Incorrect word! --> " << line << std::endl;
+	}
+	else
+	{
+		std::cout << "Correct word! --> " << line << std::endl;
 	}
 }
 
