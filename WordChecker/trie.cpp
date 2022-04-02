@@ -1,6 +1,7 @@
 #include "trie.h"
 #include <iostream>
 #include <conio.h>
+#include <string>
 
 Trie::Trie()
 {
@@ -27,13 +28,26 @@ void Trie::InsertWord(const std::string& word)
 	{
 		pnode->mEnd = true;
 	}
+}
 
+char to_lowercase(char c)
+{
+	if (c >= 'A' && c <= 'Z') {
+		return c + 32;
+	}
+
+	return c;
 }
 
 bool Trie::WordChecker(const std::string& word) const
 {
+	std::string word2 = word;
+	for (char& c : word2) {
+		c = to_lowercase(c);
+	}
+
 	auto pnode = mHead.get();
-	for (const auto& item : word)
+	for (const auto& item : word2)
 	{
 		if (int(item) >= 97 && int(item) <= 122)
 		{
@@ -55,10 +69,9 @@ bool Trie::WordChecker(const std::string& word) const
 }
 
 
-void Trie::Start(std::string fileName)
+void Trie::Start(const std::string fileName)
 {
 	std::ifstream inputFile(fileName);
-
 	while (!inputFile.eof())
 	{
 		std::string line;
@@ -66,21 +79,36 @@ void Trie::Start(std::string fileName)
 		this->InsertWord(line);
 	}
 
-	std::string line = "";
-	std::cout << "Write 0 to exit" << std::endl;
-	while (line != "0")
+	uint8_t helper = 0;
+	std::string line;
+	std::cout << "Write a sentence" << std::endl;
+	std::getline(std::cin, line);
+	auto pos = line.find(' ');
+	do
 	{
-		std::cin >> line;
-		if (line != "0")
+		const auto word = line.substr(0, pos);
+		if (!this->WordChecker(word))
 		{
-			if (this->WordChecker(line))
-			{
-				std::cout << "Correct word!" << std::endl;
-			}
-			else
-			{
-				std::cout << "Incorrect word!" << std::endl;
-			}
+			std::cout << "Incorrect word! --> " << word << std::endl;
+		}
+		else
+		{
+			std::cout << "Correct word! --> " << word << std::endl;
+		}
+		line = line.substr(pos + 1);
+		pos = line.find(' ');
+		++helper;
+	} while (pos != std::string::npos);
+
+	if (helper > 1)
+	{
+		if (!this->WordChecker(line))
+		{
+			std::cout << "Incorrect word! --> " << line << std::endl;
+		}
+		else
+		{
+			std::cout << "Correct word! --> " << line << std::endl;
 		}
 	}
 }

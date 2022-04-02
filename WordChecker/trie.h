@@ -16,11 +16,10 @@ class Trie
 {
 public:
 	Trie();
+	void Start(const std::string fileName);
+private:
 	void InsertWord(const std::string& word);
 	bool WordChecker(const std::string& word) const;
-	void Start(std::string fileName);
-
-private:
 	std::shared_ptr<Node> mHead;
 };
 
